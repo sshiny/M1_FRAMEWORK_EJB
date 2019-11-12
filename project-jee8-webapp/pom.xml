@@ -30,13 +30,32 @@
 		</dependencies>
 	</dependencyManagement>
 	<dependencies>
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet-core</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.jersey.inject</groupId>
 			<artifactId>jersey-hk2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>8.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>fr.pantheonsorbonne.ufr27.miage</groupId>
+			<artifactId>project-jee8-ejb</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>ejb</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>fr.pantheonsorbonne.ufr27.miage</groupId>
+			<artifactId>project-jee8-model</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	<build>
@@ -52,7 +71,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.8.1</version>
 				<inherited>true</inherited>
 				<configuration>
 					<source>1.8</source>

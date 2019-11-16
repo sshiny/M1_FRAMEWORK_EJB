@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
-@Dependent
+@ManagedBean
 public class PersistenceProvider {
 
 	@PostConstruct
@@ -17,6 +17,7 @@ public class PersistenceProvider {
 		System.out.println("pers prod");
 	}
 
+	
 	@PersistenceContext(unitName = "default")
 	private EntityManagerFactory factory;
 

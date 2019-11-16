@@ -18,9 +18,6 @@ import javax.ejb.LocalBean;
 @Stateless
 public class ClassRoomServiceImpl implements ClassRoomService {
 
-	@PersistenceContext(unitName = "default")
-	EntityManager em;
-
 	@Inject
 	TeacherDAO teacherDAO;
 
@@ -29,13 +26,7 @@ public class ClassRoomServiceImpl implements ClassRoomService {
 
 		System.out.println(teacherDAO);
 
-		try {
-			teacherDAO.createTeacher("nicolas", 123);
-		} catch (NullPointerException npe) {
-			npe.printStackTrace();
-		}
-
-		em.persist(new Teacher());
+		teacherDAO.createTeacher("nicolas", 123);
 
 		return "Got It from EJB";
 	}

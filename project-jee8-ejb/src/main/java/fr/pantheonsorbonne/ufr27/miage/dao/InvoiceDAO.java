@@ -1,11 +1,8 @@
 package fr.pantheonsorbonne.ufr27.miage.dao;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -24,7 +21,7 @@ public class InvoiceDAO {
 	public Collection<Invoice> getUnpaiedInvoices(int userId) throws NoSuchUserException {
 
 		Customer customer = em.find(Customer.class, userId);
-		if(customer==null) {
+		if (customer == null) {
 			throw new NoSuchUserException();
 		}
 		return customer.getContracts().//

@@ -1,7 +1,6 @@
 package fr.pantheonsorbonne.ufr27.miage.resource;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -59,7 +58,7 @@ public class UserEndpoint {
 		} catch (
 
 		NoSuchUserException e) {
-			throw new WebApplicationException("no such user",404);
+			throw new WebApplicationException("no such user", 404);
 		}
 	}
 

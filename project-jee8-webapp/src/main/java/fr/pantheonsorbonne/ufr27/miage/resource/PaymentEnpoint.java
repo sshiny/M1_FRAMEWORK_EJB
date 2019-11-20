@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
-import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.PaymentServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoDebtException;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;

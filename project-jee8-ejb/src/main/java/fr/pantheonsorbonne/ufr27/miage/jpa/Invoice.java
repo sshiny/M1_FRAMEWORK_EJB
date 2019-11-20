@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -55,7 +54,7 @@ public class Invoice {
 		this.contract = contract;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = true)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
 	Contract contract;
 
 	private boolean isPayed;

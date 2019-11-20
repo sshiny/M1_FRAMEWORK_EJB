@@ -3,7 +3,6 @@ package fr.pantheonsorbonne.ufr27.miage.jpa;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +29,7 @@ public class Payment {
 	boolean isValidated;
 
 	@OneToMany()
-	Set<Invoice> invoices=new HashSet<>();
+	Set<Invoice> invoices = new HashSet<>();
 
 	public int getId() {
 		return id;

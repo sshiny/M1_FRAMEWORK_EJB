@@ -4,8 +4,6 @@
  */
 package fr.pantheonsorbonne.ufr27.miage.ejb.impl;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -21,7 +19,6 @@ import fr.pantheonsorbonne.ufr27.miage.exception.UserHasDebtException;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Card;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Contract;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
-import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 
 @Stateless
 public class GymServiceImpl implements GymService {
@@ -37,7 +34,6 @@ public class GymServiceImpl implements GymService {
 		Customer customer = new Customer();
 		customer.setLname(lname);
 		customer.setFname(fname);
-		
 
 		Contract contract = new Contract();
 		contract.setMonthlyFare(19.99);
@@ -46,10 +42,9 @@ public class GymServiceImpl implements GymService {
 		Card card = new Card();
 		card.setActive(true);
 		card.setContract(contract);
-		
+
 		customer.getContracts().add(contract);
-		
-		
+
 		em.persist(customer);
 		em.persist(contract);
 		em.persist(card);
@@ -65,34 +60,31 @@ public class GymServiceImpl implements GymService {
 
 	@Override
 	public void cancelMemberShip(int userId) throws UserHasDebtException, NoSuchUserException {
-		
+
 		Customer customer = em.find(Customer.class, userId);
-		
-		if(!customer.isActive()) {
+
+		if (!customer.isActive()) {
 			throw new NoSuchUserException();
 		}
 
 		double debt = invoiceDao.getUserDebt(userId);
 
 		if (debt > 0) {
-			throw new UserHasDebtException(debt,userId);
+			throw new UserHasDebtException(debt, userId);
 		}
 
-		
+		for (Contract c : customer.getContracts()) {
 
-		for(Contract c : customer.getContracts()) {
-		
-			
-			for(Card card : c.getCards()) {
+			for (Card card : c.getCards()) {
 				card.setActive(false);
 				em.merge(card);
-				
+
 			}
-			
+
 			c.setEnDate(new Date());
 			em.merge(c);
 		}
-	
+
 		customer.setActive(false);
 		em.merge(customer);
 	}

@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Card {
@@ -18,7 +17,6 @@ public class Card {
 	@ManyToOne(cascade = CascadeType.ALL)
 	Contract contract;
 
-	
 	boolean isActive;
 
 	public int getId() {
@@ -36,8 +34,6 @@ public class Card {
 	public void setContract(Contract contract) {
 		this.contract = contract;
 	}
-
-	
 
 	public boolean isActive() {
 		return isActive;

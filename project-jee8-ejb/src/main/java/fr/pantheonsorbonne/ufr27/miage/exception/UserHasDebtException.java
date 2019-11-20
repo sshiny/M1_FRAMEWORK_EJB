@@ -2,6 +2,10 @@ package fr.pantheonsorbonne.ufr27.miage.exception;
 
 public class UserHasDebtException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2390474645106504444L;
 	double debt;
 	int userId;
 

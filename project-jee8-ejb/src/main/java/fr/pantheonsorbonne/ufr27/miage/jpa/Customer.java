@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -26,15 +25,14 @@ public class Customer {
 	Address address;
 
 	@OneToOne
-	
+
 	BillingInfo billingInfo;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-	Set<Contract> contracts=new HashSet<>();
+	Set<Contract> contracts = new HashSet<>();
 
-	boolean isActive=true;
+	boolean isActive = true;
 
-	
 	public boolean isActive() {
 		return isActive;
 	}

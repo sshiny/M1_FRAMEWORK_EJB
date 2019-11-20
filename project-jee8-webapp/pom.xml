@@ -43,13 +43,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>fr.pantheonsorbonne.ufr27.miage</groupId>
-			<artifactId>project-jee8-ejb</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<type>ejb</type>
-			<scope>provided</scope>
-		</dependency>
+	
 
 		<dependency>
 			<groupId>fr.pantheonsorbonne.ufr27.miage</groupId>

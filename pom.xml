@@ -8,11 +8,8 @@
 	<packaging>pom</packaging>
 	<name>project-jee8</name>
 	<modules>
-		<module>project-jee8-ear</module>
-		<module>project-jee8-ejb</module>
 		<module>project-jee8-webapp</module>
 		<module>project-jee8-model</module>
-		<module>project-jee8-payment-ejb</module>
   </modules>
 
 	<dependencyManagement>

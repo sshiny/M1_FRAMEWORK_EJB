@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.service.impl;
+package fr.pantheonsorbonne.ufr27.miage.jms;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;

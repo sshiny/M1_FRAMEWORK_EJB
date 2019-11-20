@@ -27,6 +27,13 @@
 			<version>1.0-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
+		
+		<dependency>
+			<groupId>fr.pantheonsorbonne.ufr27.miage</groupId>
+			<artifactId>project-jee8-payment-ejb</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>ejb</type>
+		</dependency>
 		<dependency>
 			<groupId>fr.pantheonsorbonne.ufr27.miage</groupId>
 			<artifactId>project-jee8-webapp</artifactId>

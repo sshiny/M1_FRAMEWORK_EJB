@@ -67,6 +67,12 @@ public class PaymentProcessorBean implements MessageListener {
 	}
 
 	private boolean isPaymentValdated(String ccnumber, String date, int ccv, double amount) {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// dummy implementation
 		return true;
 

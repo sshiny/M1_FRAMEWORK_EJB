@@ -19,6 +19,8 @@ import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
+import fr.pantheonsorbonne.ufr27.miage.conf.EMFFactory;
+import fr.pantheonsorbonne.ufr27.miage.conf.EMFactory;
 import fr.pantheonsorbonne.ufr27.miage.conf.PersistenceConf;
 import fr.pantheonsorbonne.ufr27.miage.dao.InvoiceDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
@@ -32,12 +34,13 @@ import fr.pantheonsorbonne.ufr27.miage.ejb.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.MailingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.PaymentServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.exception.ExceptionMapper;
-import fr.pantheonsorbonne.ufr27.miage.jms.PaymentProcessorBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.ConnectionFactorySupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.JMSProducer;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
+import fr.pantheonsorbonne.ufr27.miage.jms.payment.PaymentProcessorBean;
+import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
 
 /**
  * Main class.
@@ -94,10 +97,16 @@ public class Main {
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
 		SLF4JBridgeHandler.install();
 		final HttpServer server = startServer();
+		
+		BrokerUtils.startBroker();
+		
+		
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
 		server.stop();
+		
+		
 	}
 }

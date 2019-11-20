@@ -49,7 +49,8 @@ public class PaymentServiceImpl implements PaymentService {
 	private void init() {
 
 		try {
-			connection = connectionFactory.createConnection();
+			connection = connectionFactory.createConnection("nicolas", "nicolas");
+			connection.start();
 			session = connection.createSession();
 			messageProducer = session.createProducer(queue);
 		} catch (JMSException e) {

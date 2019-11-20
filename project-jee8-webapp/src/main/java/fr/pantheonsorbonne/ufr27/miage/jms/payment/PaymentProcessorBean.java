@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.jms;
+package fr.pantheonsorbonne.ufr27.miage.jms.payment;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -42,7 +42,9 @@ public class PaymentProcessorBean implements MessageListener {
 	private void init() {
 
 		try {
-			connection = connectionFactory.createConnection();
+			
+			connection = connectionFactory.createConnection("nicolas", "nicolas");
+			connection.start();
 			session = connection.createSession();
 			consumer = session.createConsumer(queuePayment);
 			producer = session.createProducer(queueAck);
@@ -98,10 +100,10 @@ public class PaymentProcessorBean implements MessageListener {
 		try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
-		// dummy implementation
+		
 		return true;
 
 	}

@@ -13,8 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import fr.pantheonsorbonne.ufr27.miage.ejb.GymService;
-import fr.pantheonsorbonne.ufr27.miage.jms.PaymentProcessorBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
+import fr.pantheonsorbonne.ufr27.miage.jms.payment.PaymentProcessorBean;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.FreeTrialPlan;;
 
 @Path("membership/")

@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage;
+package fr.pantheonsorbonne.ufr27.miage.conf;
 
 import java.io.Closeable;
 import java.util.function.Supplier;
@@ -22,12 +22,12 @@ public class EMFactory implements Supplier<EntityManager> {
 
 	public EntityManager get() {
 		final EntityManager em = emf.createEntityManager();
-		this.closeService.add(new Closeable() {
-			@Override
-			public void close() {
-				em.close();
-			}
-		});
+//		this.closeService.add(new Closeable() {
+//			@Override
+//			public void close() {
+//				em.close();
+//			}
+//		});
 		return em;
 	}
 

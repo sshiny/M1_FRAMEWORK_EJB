@@ -3,7 +3,7 @@ package fr.pantheonsorbonne.ufr27.miage.resource;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
-import fr.pantheonsorbonne.ufr27.miage.ejb.impl.PaymentServiceImpl;
+import fr.pantheonsorbonne.ufr27.miage.ejb.PaymentService;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoDebtException;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Ccinfo;
@@ -21,10 +21,10 @@ import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Ccinfo;
 @Path("payment")
 public class PaymentEnpoint {
 
-	@EJB
-	PaymentServiceImpl service;
+	@Inject
+	PaymentService service;
 
-	@EJB
+	@Inject
 	PaymentDAO paymentDAO;
 
 	@POST

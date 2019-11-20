@@ -4,39 +4,68 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
 
-@MessageDriven(mappedName = "app/jms/PaymentQueue", activationConfig = {
-		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
-		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue") })
+@ApplicationScoped
 public class PaymentProcessorBean implements MessageListener {
 
-	@Resource(mappedName = "jms/__defaultConnectionFactory")
+	@Inject
 	private ConnectionFactory connectionFactory;
 
-	@Resource(mappedName = "app/jms/PaymentAckQueue")
-	private Queue queue;
+	@Inject
+	@Named("PaymentAckQueue")
+	private Queue queueAck;
+
+	@Inject
+	@Named("PaymentQueue")
+	private Queue queuePayment;
 
 	private Connection connection;
 
 	private Session session;
 
-	private MessageProducer messageProducer;
+	private MessageConsumer consumer;
+	private MessageProducer producer;
 
 	@PostConstruct
 	private void init() {
 
 		try {
 			connection = connectionFactory.createConnection();
-			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			messageProducer = session.createProducer(queue);
+			session = connection.createSession();
+			consumer = session.createConsumer(queuePayment);
+			producer = session.createProducer(queueAck);
+			
+			MessageListener listener = this;
+
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					while (true) {
+						try {
+							Message message = consumer.receive();
+							listener.onMessage(message);
+						} catch (JMSException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				}
+			}).start();
+
 		} catch (JMSException e) {
 			throw new RuntimeException("failed to create JMS Session", e);
 		}
@@ -56,7 +85,7 @@ public class PaymentProcessorBean implements MessageListener {
 				Message outgoingMessage = this.session.createMessage();
 				outgoingMessage.setIntProperty("paymentId", paymentId);
 				outgoingMessage.setBooleanProperty("validated", true);
-				messageProducer.send(outgoingMessage);
+				producer.send(outgoingMessage);
 			}
 
 		} catch (JMSException e) {

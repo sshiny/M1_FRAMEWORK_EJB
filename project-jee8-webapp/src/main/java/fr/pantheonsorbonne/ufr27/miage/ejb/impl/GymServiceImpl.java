@@ -6,6 +6,7 @@ package fr.pantheonsorbonne.ufr27.miage.ejb.impl;
 
 import java.util.Date;
 
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -20,13 +21,13 @@ import fr.pantheonsorbonne.ufr27.miage.jpa.Card;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Contract;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
 
-@Stateless
+@ManagedBean
 public class GymServiceImpl implements GymService {
 
 	@Inject
 	EntityManager em;
 
-	@EJB
+	@Inject
 	InvoicingService is;
 
 	@Override
@@ -55,12 +56,12 @@ public class GymServiceImpl implements GymService {
 
 	}
 
-	@EJB
+	@Inject
 	InvoiceDAO invoiceDao;
 
 	@Override
 	public void cancelMemberShip(int userId) throws UserHasDebtException, NoSuchUserException {
-
+		em.getTransaction().begin();
 		Customer customer = em.find(Customer.class, userId);
 
 		if (!customer.isActive()) {
@@ -87,6 +88,8 @@ public class GymServiceImpl implements GymService {
 
 		customer.setActive(false);
 		em.merge(customer);
+		
+		em.getTransaction().commit();
 	}
 
 }

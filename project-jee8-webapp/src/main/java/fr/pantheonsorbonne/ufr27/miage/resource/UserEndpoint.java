@@ -1,6 +1,7 @@
 package fr.pantheonsorbonne.ufr27.miage.resource;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,17 +16,25 @@ import fr.pantheonsorbonne.ufr27.miage.dao.UserDAO;
 import fr.pantheonsorbonne.ufr27.miage.ejb.GymService;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
 import fr.pantheonsorbonne.ufr27.miage.exception.UserHasDebtException;
+import fr.pantheonsorbonne.ufr27.miage.jms.PaymentProcessorBean;
+import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Address;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.User;
 
 @Path("/user")
 public class UserEndpoint {
 
-	@EJB
+	@Inject
 	UserDAO dao;
 
-	@EJB
+	@Inject
 	GymService service;
+	
+	@Inject
+	PaymentValidationAckownledgerBean b1_;
+	
+	@Inject
+	PaymentProcessorBean b2_;
 
 	@GET
 	@Path("/{userId}")

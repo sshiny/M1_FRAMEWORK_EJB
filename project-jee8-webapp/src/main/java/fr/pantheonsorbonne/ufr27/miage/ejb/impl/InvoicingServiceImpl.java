@@ -22,12 +22,12 @@ public class InvoicingServiceImpl implements InvoicingService {
 	@Inject
 	EntityManager em;
 	
-	@EJB
+	@Inject
 	MailingService ms;
 
 	@Override
 	public void sendNextInvoice(int customerId) {
-
+		em.getTransaction().begin();
 		Customer customer = em.find(Customer.class, customerId);
 		LocalDateTime today = LocalDateTime.now();
 		Set<Contract> contracts = customer.getContracts();
@@ -51,6 +51,7 @@ public class InvoicingServiceImpl implements InvoicingService {
 			}
 			em.merge(contract);
 		}
+		em.getTransaction().commit();
 
 	}
 

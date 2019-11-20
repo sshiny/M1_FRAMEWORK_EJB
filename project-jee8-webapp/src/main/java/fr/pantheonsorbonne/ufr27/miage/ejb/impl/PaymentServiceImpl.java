@@ -1,10 +1,10 @@
 package fr.pantheonsorbonne.ufr27.miage.ejb.impl;
 
+import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
@@ -21,25 +21,28 @@ import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
 import fr.pantheonsorbonne.ufr27.miage.jpa.Payment;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Ccinfo;
 
-@Stateless
+@ApplicationScoped
+@ManagedBean
 public class PaymentServiceImpl implements PaymentService {
 
 	@Inject
 	EntityManager em;
 
-	@EJB
+	@Inject
 	InvoiceDAO invoiceDao;
 
-	@Resource(mappedName = "jms/__defaultConnectionFactory")
+	@Inject
 	private ConnectionFactory connectionFactory;
 
-	@Resource(mappedName = "app/jms/PaymentQueue")
+	@Inject
+	@Named("PaymentQueue")
 	private Queue queue;
 
 	private Connection connection;
 
 	private Session session;
 
+	
 	private MessageProducer messageProducer;
 
 	@PostConstruct
@@ -47,14 +50,16 @@ public class PaymentServiceImpl implements PaymentService {
 
 		try {
 			connection = connectionFactory.createConnection();
-			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+			session = connection.createSession();
 			messageProducer = session.createProducer(queue);
 		} catch (JMSException e) {
 			throw new RuntimeException("failed to create JMS Session", e);
 		}
 	}
 
+	@Override
 	public int initiatePayAllDebts(Ccinfo info, int userId) throws NoDebtException, NoSuchUserException {
+		em.getTransaction().begin();
 		try {
 
 			double amount = invoiceDao.getUserDebt(userId);
@@ -75,14 +80,18 @@ public class PaymentServiceImpl implements PaymentService {
 			message.setIntProperty("userId", userId);
 			message.setIntProperty("paymentId", p.getId());
 			messageProducer.send(message);
+			em.getTransaction().commit();
 			return p.getId();
 
 		} catch (JMSException e) {
+			em.getTransaction().rollback();
 			throw new RuntimeException("failed to initiate payment", e);
 		}
 	}
 
+	@Override
 	public int initiatePayment(Ccinfo info, int userId, int invoiceId, double amount) {
+		em.getTransaction().begin();
 		try {
 
 			Payment p = new Payment();
@@ -98,11 +107,14 @@ public class PaymentServiceImpl implements PaymentService {
 			message.setIntProperty("userId", userId);
 			message.setIntProperty("paymentId", p.getId());
 			messageProducer.send(message);
+			em.getTransaction().commit();
 			return p.getId();
 
 		} catch (JMSException e) {
+			em.getTransaction().rollback();
 			throw new RuntimeException("failed to initiate payment", e);
 		}
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package fr.pantheonsorbonne.ufr27.miage.dao;
 
+import javax.annotation.ManagedBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,7 +11,7 @@ import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Address;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.User;
 
-@Stateless
+@ManagedBean
 public class UserDAO {
 
 	@Inject
@@ -31,6 +32,7 @@ public class UserDAO {
 	}
 
 	public void updateUserAddress(int userId, Address address) throws NoSuchUserException {
+		em.getTransaction().begin();
 		Customer customer = em.find(Customer.class, userId);
 		if(customer==null) {
 			throw new NoSuchUserException();
@@ -42,6 +44,7 @@ public class UserDAO {
 		customerAddress.setZipCode(address.getZipCode());
 
 		em.merge(address);
+		em.getTransaction().commit();
 
 	}
 

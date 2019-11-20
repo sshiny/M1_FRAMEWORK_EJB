@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.pantheonsorbonne.ufr27.miage;
+package fr.pantheonsorbonne.ufr27.miage.ejb.impl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,10 +13,15 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Card;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Contract;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Customer;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Invoice;
+import fr.pantheonsorbonne.ufr27.miage.dao.InvoiceDAO;
+import fr.pantheonsorbonne.ufr27.miage.ejb.GymService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
+import fr.pantheonsorbonne.ufr27.miage.exception.UserHasDebtException;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Card;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Contract;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 
 @Stateless
 public class GymServiceImpl implements GymService {

@@ -12,18 +12,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import fr.pantheonsorbonne.ufr27.miage.InvoicingService;
-import fr.pantheonsorbonne.ufr27.miage.NoDebtException;
-import fr.pantheonsorbonne.ufr27.miage.NoSuchUserException;
-import fr.pantheonsorbonne.ufr27.miage.PaymentService;
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
-import fr.pantheonsorbonne.ufr27.miage.model.Ccinfo;
+import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.impl.PaymentServiceImpl;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoDebtException;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Ccinfo;
 
 @Path("payment")
 public class PaymentEnpoint {
 
 	@EJB
-	PaymentService service;
+	PaymentServiceImpl service;
 
 	@EJB
 	PaymentDAO paymentDAO;

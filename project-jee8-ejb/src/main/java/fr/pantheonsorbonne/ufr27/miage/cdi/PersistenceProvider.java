@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.dao;
+package fr.pantheonsorbonne.ufr27.miage.cdi;
 
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;

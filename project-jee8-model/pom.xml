@@ -121,7 +121,7 @@
 						</execution>
 					</executions>
 					<configuration>
-						<packageName>fr.pantheonsorbonne.ufr27.miage.model</packageName>
+						<packageName>fr.pantheonsorbonne.ufr27.miage.model.jaxb</packageName>
 
 					</configuration>
 

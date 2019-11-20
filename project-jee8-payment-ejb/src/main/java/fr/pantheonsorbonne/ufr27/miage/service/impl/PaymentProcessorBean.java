@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage;
+package fr.pantheonsorbonne.ufr27.miage.service.impl;
 
 import javax.ejb.MessageDriven;
 import javax.ejb.MessageDrivenContext;

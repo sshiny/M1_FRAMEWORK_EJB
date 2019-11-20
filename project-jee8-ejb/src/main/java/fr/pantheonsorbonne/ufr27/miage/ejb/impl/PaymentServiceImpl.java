@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage;
+package fr.pantheonsorbonne.ufr27.miage.ejb.impl;
 
 import java.io.StringWriter;
 
@@ -19,12 +19,16 @@ import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Customer;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Payment;
-import fr.pantheonsorbonne.ufr27.miage.model.Ccinfo;
+import fr.pantheonsorbonne.ufr27.miage.dao.InvoiceDAO;
+import fr.pantheonsorbonne.ufr27.miage.ejb.PaymentService;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoDebtException;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Payment;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Ccinfo;
 
 @Stateless
-public class PaymentService {
+public class PaymentServiceImpl implements PaymentService {
 
 	@Inject
 	EntityManager em;

@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage;
+package fr.pantheonsorbonne.ufr27.miage.ejb.impl;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -10,9 +10,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Contract;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Customer;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Invoice;
+import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.MailingService;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Contract;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
 
 @Stateless
 public class InvoicingServiceImpl implements InvoicingService {

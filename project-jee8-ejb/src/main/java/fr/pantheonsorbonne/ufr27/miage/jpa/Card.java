@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.dao.entitiy;
+package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

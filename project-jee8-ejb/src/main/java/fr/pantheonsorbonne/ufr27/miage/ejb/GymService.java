@@ -1,8 +1,10 @@
-package fr.pantheonsorbonne.ufr27.miage;
+package fr.pantheonsorbonne.ufr27.miage.ejb;
 
 import javax.ejb.Remote;
 
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Card;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
+import fr.pantheonsorbonne.ufr27.miage.exception.UserHasDebtException;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Card;
 
 @Remote
 public interface GymService {

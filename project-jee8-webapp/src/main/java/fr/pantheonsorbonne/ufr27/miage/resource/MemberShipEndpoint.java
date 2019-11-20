@@ -13,9 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import fr.pantheonsorbonne.ufr27.miage.GymService;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Card;
-import fr.pantheonsorbonne.ufr27.miage.model.FreeTrialPlan;
+import fr.pantheonsorbonne.ufr27.miage.ejb.GymService;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Card;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.FreeTrialPlan;;
 
 @Path("membership/")
 public class MemberShipEndpoint {

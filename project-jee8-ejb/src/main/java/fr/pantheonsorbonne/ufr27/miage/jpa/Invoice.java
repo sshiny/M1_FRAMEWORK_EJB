@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.dao.entitiy;
+package fr.pantheonsorbonne.ufr27.miage.jpa;
 
 import java.util.Date;
 

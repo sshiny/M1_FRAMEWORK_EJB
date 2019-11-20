@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.resource;
+package fr.pantheonsorbonne.ufr27.miage.exception;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import fr.pantheonsorbonne.ufr27.miage.UserHasDebtException;
+import fr.pantheonsorbonne.ufr27.miage.exception.UserHasDebtException;
 
 @Provider
 public class MembershipCancellationDeniedExceptionMapper implements ExceptionMapper<UserHasDebtException> {

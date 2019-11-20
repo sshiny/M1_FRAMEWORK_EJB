@@ -4,11 +4,11 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import fr.pantheonsorbonne.ufr27.miage.NoSuchUserException;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Customer;
-import fr.pantheonsorbonne.ufr27.miage.model.Address;
-import fr.pantheonsorbonne.ufr27.miage.model.ObjectFactory;
-import fr.pantheonsorbonne.ufr27.miage.model.User;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchUserException;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Customer;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Address;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.User;
 
 @Stateless
 public class UserDAO {
@@ -35,7 +35,7 @@ public class UserDAO {
 		if(customer==null) {
 			throw new NoSuchUserException();
 		}
-		fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Address customerAddress = customer.getAddress();
+		fr.pantheonsorbonne.ufr27.miage.jpa.Address customerAddress = customer.getAddress();
 		customerAddress.setCountry(address.getCountry());
 		customerAddress.setStreeNumber(address.getStreetNumber());
 		customerAddress.setStreetName(address.getStreetName());

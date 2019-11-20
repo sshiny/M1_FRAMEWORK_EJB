@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.resource;
+package fr.pantheonsorbonne.ufr27.miage.conf;
 
 import java.util.HashSet;
 import java.util.Set;

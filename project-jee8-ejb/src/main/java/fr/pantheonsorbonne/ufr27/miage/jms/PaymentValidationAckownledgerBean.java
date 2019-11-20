@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.ufr27.miage.dao;
+package fr.pantheonsorbonne.ufr27.miage.jms;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -8,8 +8,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.persistence.EntityManager;
 
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Invoice;
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Payment;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Invoice;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Payment;
 
 @MessageDriven(mappedName = "app/jms/PaymentAckQueue", activationConfig = {
 		@ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),

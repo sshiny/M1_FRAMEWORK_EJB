@@ -3,7 +3,7 @@ package fr.pantheonsorbonne.ufr27.miage.dao;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
-import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Payment;
+import fr.pantheonsorbonne.ufr27.miage.jpa.Payment;
 
 import javax.inject.Inject;
 

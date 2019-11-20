@@ -15,9 +15,12 @@
 				value="drop-and-create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
-			<property name="eclipselink.logging.level" value="SEVERE" />
+
+
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
 		</properties>
 
 	</persistence-unit>
-	
+
 </persistence>

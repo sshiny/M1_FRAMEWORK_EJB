@@ -4,7 +4,7 @@
 	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
 	jxb:extensionBindingPrefixes="xjc"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<jxb:bindings schemaLocation="../xsd/amadeus.xsd"
+	<jxb:bindings schemaLocation="../xsd/model.xsd"
 		node="/xs:schema">
 		<jxb:globalBindings>
 			<xjc:simple />

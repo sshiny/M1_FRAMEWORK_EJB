@@ -1,0 +1,95 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package fr.pantheonsorbonne.ufr27.miage;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Card;
+import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Contract;
+import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Customer;
+import fr.pantheonsorbonne.ufr27.miage.dao.entitiy.Invoice;
+
+@Stateless
+public class GymServiceImpl implements GymService {
+
+	@Inject
+	EntityManager em;
+
+	@EJB
+	InvoicingService is;
+
+	@Override
+	public int createMembership(String lname, String fname) {
+		Customer customer = new Customer();
+		customer.setLname(lname);
+		customer.setFname(fname);
+		
+
+		Contract contract = new Contract();
+		contract.setMonthlyFare(19.99);
+		contract.setCustomer(customer);
+
+		Card card = new Card();
+		card.setActive(true);
+		card.setContract(contract);
+		
+		customer.getContracts().add(contract);
+		
+		
+		em.persist(customer);
+		em.persist(contract);
+		em.persist(card);
+
+		is.sendNextInvoice(customer.getId());
+
+		return customer.getId();
+
+	}
+
+	@EJB
+	InvoiceDAO invoiceDao;
+
+	@Override
+	public void cancelMemberShip(int userId) throws UserHasDebtException, NoSuchUserException {
+		
+		Customer customer = em.find(Customer.class, userId);
+		
+		if(!customer.isActive()) {
+			throw new NoSuchUserException();
+		}
+
+		double debt = invoiceDao.getUserDebt(userId);
+
+		if (debt > 0) {
+			throw new UserHasDebtException(debt,userId);
+		}
+
+		
+
+		for(Contract c : customer.getContracts()) {
+		
+			
+			for(Card card : c.getCards()) {
+				card.setActive(false);
+				em.merge(card);
+				
+			}
+			
+			c.setEnDate(new Date());
+			em.merge(c);
+		}
+	
+		customer.setActive(false);
+		em.merge(customer);
+	}
+
+}

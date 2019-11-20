@@ -19,12 +19,12 @@ public class PersistenceProvider {
 
 	
 	@PersistenceContext(unitName = "default")
-	private EntityManagerFactory factory;
+	private EntityManager em;
 
 	
 	@Produces
 	public EntityManager getEM() {
-		return factory.createEntityManager();
+		return em;
 	}
 
 }

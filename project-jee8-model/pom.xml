@@ -24,7 +24,7 @@
 	</properties>
 
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
@@ -32,7 +32,20 @@
 		</dependency>
 
 
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>8.0.0</version>
+			<scope>compile</scope>
+		</dependency>
 
+
+
+		<dependency>
+			<groupId>org.jvnet.jaxb2_commons</groupId>
+			<artifactId>jaxb2-basics-annotate</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 
 
 
@@ -119,9 +132,21 @@
 							</goals>
 							<phase>generate-sources</phase>
 						</execution>
+
 					</executions>
+
 					<configuration>
 						<packageName>fr.pantheonsorbonne.ufr27.miage.model.jaxb</packageName>
+						<extension>true</extension>
+						<arguments>-Xannotate</arguments>
+						<plugins>
+							<plugin>
+								<groupId>org.jvnet.jaxb2_commons</groupId>
+								<artifactId>jaxb2-basics-annotate</artifactId>
+							</plugin>
+
+
+						</plugins>
 
 					</configuration>
 
@@ -140,6 +165,10 @@
 				<artifactId>build-helper-maven-plugin</artifactId>
 
 			</plugin>
+
+
+
 		</plugins>
+
 	</build>
 </project>

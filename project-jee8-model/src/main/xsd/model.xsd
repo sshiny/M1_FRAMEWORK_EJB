@@ -1,13 +1,28 @@
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-
-
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1"
+	xmlns:annox="http://annox.dev.java.net"
+	jaxb:extensionBindingPrefixes="annox">
 
 	<xsd:complexType name="user">
+
+		<xsd:annotation>
+			<xsd:appinfo>
+				<annox:annotate>@javax.persistence.Entity</annox:annotate>
+
+			</xsd:appinfo>
+		</xsd:annotation>
 		<xsd:sequence>
 			<xsd:element name="fname" type="xsd:string"></xsd:element>
 			<xsd:element name="lname" type="xsd:string"></xsd:element>
 			<xsd:element name="membershipId" type="xsd:int"
-				minOccurs="0"></xsd:element>
+				minOccurs="0">
+				<xsd:annotation>
+			<xsd:appinfo>
+				<annox:annotate>@javax.persistence.Id</annox:annotate>
+
+			</xsd:appinfo>
+		</xsd:annotation>
+				</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 

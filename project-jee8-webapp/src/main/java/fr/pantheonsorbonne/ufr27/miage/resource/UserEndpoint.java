@@ -1,6 +1,5 @@
 package fr.pantheonsorbonne.ufr27.miage.resource;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,10 +28,10 @@ public class UserEndpoint {
 
 	@Inject
 	GymService service;
-	
+
 	@Inject
 	PaymentValidationAckownledgerBean b1_;
-	
+
 	@Inject
 	PaymentProcessorBean b2_;
 

@@ -1,10 +1,12 @@
 package fr.pantheonsorbonne.ufr27.miage;
 
+import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.Locale;
 
-import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 import javax.jms.ConnectionFactory;
 import javax.jms.Queue;
@@ -17,11 +19,11 @@ import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.process.internal.RequestScoped;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.h2.tools.Server;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import fr.pantheonsorbonne.ufr27.miage.conf.EMFFactory;
 import fr.pantheonsorbonne.ufr27.miage.conf.EMFactory;
-import fr.pantheonsorbonne.ufr27.miage.conf.PersistenceConf;
 import fr.pantheonsorbonne.ufr27.miage.dao.InvoiceDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.UserDAO;
@@ -55,8 +57,7 @@ public class Main {
 		final ResourceConfig rc = new ResourceConfig()//
 				.packages(true, "fr.pantheonsorbonne.ufr27.miage")//
 				.register(DeclarativeLinkingFeature.class)//
-				.register(JMSProducer.class).register(ExceptionMapper.class).register(PersistenceConf.class)
-				.register(new AbstractBinder() {
+				.register(JMSProducer.class).register(ExceptionMapper.class).register(new AbstractBinder() {
 
 					@Override
 					protected void configure() {
@@ -72,11 +73,14 @@ public class Main {
 						bindFactory(EMFFactory.class).to(EntityManagerFactory.class).in(Singleton.class);
 						bindFactory(EMFactory.class).to(EntityManager.class).in(RequestScoped.class);
 						bindFactory(ConnectionFactorySupplier.class).to(ConnectionFactory.class).in(Singleton.class);
-						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue").in(Singleton.class);
-						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue").in(Singleton.class);
-						
+						bindFactory(PaymentAckQueueSupplier.class).to(Queue.class).named("PaymentAckQueue")
+								.in(Singleton.class);
+						bindFactory(PaymentQueueSupplier.class).to(Queue.class).named("PaymentQueue")
+								.in(Singleton.class);
+
 						bind(PaymentProcessorBean.class).to(PaymentProcessorBean.class).in(Singleton.class);
-						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class).in(Singleton.class);
+						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class)
+								.in(Singleton.class);
 
 					}
 
@@ -97,16 +101,33 @@ public class Main {
 		SLF4JBridgeHandler.removeHandlersForRootLogger();
 		SLF4JBridgeHandler.install();
 		final HttpServer server = startServer();
-		
+
 		BrokerUtils.startBroker();
-		
-		
+
+		startH2Console();
+
 		System.out.println(String.format(
 				"Jersey app started with WADL available at " + "%sapplication.wadl\nHit enter to stop it...",
 				BASE_URI));
 		System.in.read();
 		server.stop();
-		
-		
+
+	}
+
+	private static void startH2Console() {
+		Server server;
+		try {
+			server = Server.createWebServer("-webAllowOthers");
+
+			server = server.start();
+
+			if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				Desktop.getDesktop().browse(new URI("http://localhost:8082"));
+
+			}
+		} catch (SQLException | IOException | URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

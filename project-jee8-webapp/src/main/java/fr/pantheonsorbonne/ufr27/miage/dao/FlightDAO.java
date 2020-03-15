@@ -28,8 +28,8 @@ public class FlightDAO {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Flight> query = builder.createQuery(Flight.class);
 		Root<Flight> flights = query.from(Flight.class);
-		query.select(airport);
-		query.where(builder.equal(flight.get("city"), city));
+		/*query.select(airport);
+		query.where(builder.equal(flight.get("city"), city));*/
 		return null;
 	}
 }

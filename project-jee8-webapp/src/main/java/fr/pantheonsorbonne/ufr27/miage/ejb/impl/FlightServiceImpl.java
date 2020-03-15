@@ -17,6 +17,6 @@ public class FlightServiceImpl implements FlightService {
 	
 	@Override
 	public Collection<Flight> getAll(AvailabilityNeutralRequest request) {
-		return dao.findAll(request.getDate(), request.getOrigin(), request.getDestination(), request.getDepartureTime());
+		return null ;//dao.findAll(request.getDate(), request.getOrigin(), request.getDestination(), request.getDepartureTime());
 	}
 }

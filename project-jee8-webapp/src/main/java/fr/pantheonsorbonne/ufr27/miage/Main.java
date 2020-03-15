@@ -35,11 +35,13 @@ import fr.pantheonsorbonne.ufr27.miage.ejb.InitService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.InitServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.MailingService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.PassengerService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.PaymentService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.FlightServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.MailingServiceImpl;
+import fr.pantheonsorbonne.ufr27.miage.ejb.impl.PassengerServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.PaymentServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.exception.ExceptionMapper;
 import fr.pantheonsorbonne.ufr27.miage.jms.PaymentValidationAckownledgerBean;
@@ -91,6 +93,7 @@ public class Main {
 
 						bind(ObjectFactory.class).to(ObjectFactory.class);
 						bind(FlightServiceImpl.class).to(FlightService.class);
+						bind(PassengerServiceImpl.class).to(PassengerService.class);
 						bind(InitServiceImpl.class).to(InitService.class);
 						bind(AirportDAO.class).to(AirportDAO.class);
 						bind(FlightDAO.class).to(FlightDAO.class);

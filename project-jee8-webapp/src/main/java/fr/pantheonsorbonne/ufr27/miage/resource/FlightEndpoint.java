@@ -3,24 +3,32 @@ package fr.pantheonsorbonne.ufr27.miage.resource;
 import java.util.Collection;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
+import fr.pantheonsorbonne.ufr27.miage.ejb.BookingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.FlightService;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AvailabilityNeutralRequest;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.SSRequest;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.SSResponse;
 
 @Path("flights")
 public class FlightEndpoint {
 	
 	@Inject
-	FlightService service;
+	FlightService flightService;
+	
+	@Inject
+	BookingService bookingService;
 	
 	@Inject
 	ObjectFactory factory;
@@ -40,7 +48,22 @@ public class FlightEndpoint {
 			req.setOrigin(origin);
 			req.setDestination(destination);
 			req.setDepartureTime(departureTime);
-			return service.getAll(req);
+			return flightService.getAll(req);
+		} catch (Exception e) {
+			if (e instanceof NoAirportForSuchCityException) {
+				throw new WebApplicationException("airport no found", 404);
+			}
+			throw new WebApplicationException(500);
+		}
+	}
+
+	@Consumes(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@Produces(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	@POST
+	@Path("{id}/book")
+	public Collection<SSResponse> book(@PathParam("id") int id, SSRequest req) {
+		try {
+			return bookingService.book(id, req);
 		} catch (Exception e) {
 			if (e instanceof NoAirportForSuchCityException) {
 				throw new WebApplicationException("airport no found", 404);

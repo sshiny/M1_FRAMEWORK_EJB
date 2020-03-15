@@ -121,18 +121,13 @@
 	<xsd:complexType name="SSRequest">
 		<xsd:sequence>
 			<xsd:element name="numberOfSeats" type="xsd:integer"></xsd:element>
-			<xsd:element name="class" type="xsd:string"></xsd:element>
-			<xsd:element name="availabilityLineNumber" type="xsd:integer"></xsd:element>
+			<xsd:element name="klass" type="xsd:string"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 	
 	<xsd:complexType name="SSResponse">
 		<xsd:sequence>
-			<xsd:element name="id" type="xsd:integer"></xsd:element>
-			<xsd:element name="idCompany" type="xsd:integer"></xsd:element>
-			<xsd:element name="availability" type="xsd:string"></xsd:element>
-			<xsd:element name="id" type="xsd:integer"></xsd:element>
-			<xsd:element name="idCompagny" type="xsd:string"></xsd:element>
+			<xsd:element name="company" type="xsd:string"></xsd:element>
 			<xsd:element name="idFlight" type="xsd:integer"></xsd:element>
 			<xsd:element name="class" type="xsd:string"></xsd:element>
 			<xsd:element name="date" type="xsd:dateTime"></xsd:element>
@@ -148,7 +143,7 @@
 		<xsd:sequence>
 			<xsd:element name="lname" type="xsd:string"></xsd:element>
 			<xsd:element name="fname" type="xsd:string"></xsd:element>
-			<xsd:element name="sexe" type="xsd:string"></xsd:element>
+			<xsd:element name="gender" type="xsd:string"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 	

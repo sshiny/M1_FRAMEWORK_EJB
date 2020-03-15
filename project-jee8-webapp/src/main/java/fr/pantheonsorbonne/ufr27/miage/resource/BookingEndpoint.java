@@ -16,9 +16,10 @@ import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AvailabilityNeutralRequest;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Booking;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
-@Path("booking/")
 
-public class BookingEndPoint {
+@Path("booking/")
+public class BookingEndpoint {
+	
 	@Inject
 	BookingService service;
 

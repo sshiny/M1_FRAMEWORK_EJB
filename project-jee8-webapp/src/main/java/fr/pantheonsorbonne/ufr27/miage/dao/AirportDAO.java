@@ -15,6 +15,15 @@ public class AirportDAO {
 	@Inject
 	EntityManager em;
 	
+	public AirportJPA create(String code, String city) {
+		AirportJPA airport = new AirportJPA();
+		airport.setCode(code);
+		airport.setCity(city);
+		em.persist(airport);
+		em.flush();
+		return airport;
+	}
+	
 	public AirportJPA findByCity(String city) throws NoAirportForSuchCityException {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<AirportJPA> query = builder.createQuery(AirportJPA.class);

@@ -8,17 +8,17 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Airport;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AirportJPA;
 
 public class AirportDAO {
 	
 	@Inject
 	EntityManager em;
 	
-	public Airport findByCity(String city) throws NoAirportForSuchCityException {
+	public AirportJPA findByCity(String city) throws NoAirportForSuchCityException {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Airport> query = builder.createQuery(Airport.class);
-		Root<Airport> airports = query.from(Airport.class);
+		CriteriaQuery<AirportJPA> query = builder.createQuery(AirportJPA.class);
+		Root<AirportJPA> airports = query.from(AirportJPA.class);
 		query.select(airports);
 		query.where(builder.equal(airports.get("city"), city));
 		try {

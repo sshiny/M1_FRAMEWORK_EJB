@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 
 import fr.pantheonsorbonne.ufr27.miage.dao.AirportDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.FlightDAO;
-import fr.pantheonsorbonne.ufr27.miage.jpa.FlyJPA;
+import fr.pantheonsorbonne.ufr27.miage.jpa.FlightJPA;
 
 public class InitServiceImpl implements InitService {
 	
@@ -21,11 +21,11 @@ public class InitServiceImpl implements InitService {
 	@Override
 	public void init() {
 		em.getTransaction().begin();
-		FlyJPA f = new FlyJPA();
+		FlightJPA f = new FlightJPA();
 		em.persist(f);
-		f = new FlyJPA();
+		f = new FlightJPA();
 		em.persist(f);
-		f = new FlyJPA();
+		f = new FlightJPA();
 		em.persist(f);
 		em.getTransaction().commit();
 	}

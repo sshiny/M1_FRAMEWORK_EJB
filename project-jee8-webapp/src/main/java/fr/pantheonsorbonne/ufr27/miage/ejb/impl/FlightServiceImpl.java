@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import fr.pantheonsorbonne.ufr27.miage.dao.FlightDAO;
 import fr.pantheonsorbonne.ufr27.miage.ejb.FlightService;
+import fr.pantheonsorbonne.ufr27.miage.jpa.FlightJPA;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AvailabilityNeutralRequest;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
@@ -23,7 +24,7 @@ public class FlightServiceImpl implements FlightService {
 	
 	@Override
 	public Collection<Flight> getAll(AvailabilityNeutralRequest request) throws Exception {
-		List<Flight> flights = dao.findAll(
+		List<FlightJPA> flights = dao.findAll(
 			request.getDate(),
 			request.getOrigin(),
 			request.getDestination(),
@@ -31,18 +32,18 @@ public class FlightServiceImpl implements FlightService {
 		);
 		Collection<Flight> res = new ArrayList<>();
 		int i = 0;
-		for (Flight f : flights) {
+		for (FlightJPA f : flights) {
 			Flight flight = factory.createFlight();
 			flight.setId(BigInteger.valueOf(++i));
-		    flight.setIdCompany(f.getIdCompany());
-		    flight.setAvailability(f.getAvailability());
+		    flight.setIdCompany(f.getCompany());
+		    flight.setAvailability(f.getGetAvailabilities());
 		    flight.setOrigin(f.getOrigin());
 		    flight.setDestination(f.getDestination());
-		    flight.setDepartureTime(f.getDepartureTime());
-		    flight.setArrivalTime(f.getArrivalTime());
+		    flight.setDepartureTime(f.getDateDep());
+		    flight.setArrivalTime(f.getDuration());
 		    flight.setDuration(f.getDuration());
 			res.add(flight);
 		}
 		return res;
 	}
-}
+}	

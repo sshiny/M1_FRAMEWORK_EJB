@@ -12,7 +12,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Airport;
+import fr.pantheonsorbonne.ufr27.miage.jpa.FlightJPA;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AirportJPA;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
 
 public class FlightDAO {
@@ -23,9 +24,9 @@ public class FlightDAO {
 	@Inject
 	AirportDAO airportDAO;
 	
-	public List<Flight> findAll(String _date, String _origin, String _destination, String departureTime) throws Exception {
-		Airport origin = airportDAO.findByCity(_origin);
-		Airport destination = airportDAO.findByCity(_destination);
+	public List<FlightJPA> findAll(String _date, String _origin, String _destination, String departureTime) throws Exception {
+		AirportJPA origin = airportDAO.findByCity(_origin);
+		AirportJPA destination = airportDAO.findByCity(_destination);
 		String day = _date.substring(0, 2);
 		String month = _date.substring(2);
 		
@@ -37,10 +38,10 @@ public class FlightDAO {
 		LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
 		LocalTime time = LocalTime.parse(departureTime);
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Flight> query = builder.createQuery(Flight.class);
-		Root<Flight> flights = query.from(Flight.class);
+		CriteriaQuery<FlightJPA> query = builder.createQuery(FlightJPA.class);
+		Root<FlightJPA> flights = query.from(FlightJPA.class);
 		query.select(flights);
-		query.where(
+		query.where(	
 			builder.equal(flights.get("date"), date),
 			builder.equal(flights.get("origin"), origin),
 			builder.equal(flights.get("destination"), destination),

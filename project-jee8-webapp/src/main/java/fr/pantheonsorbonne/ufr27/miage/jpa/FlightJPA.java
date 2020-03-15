@@ -1,4 +1,5 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -23,6 +24,39 @@ public class FlightJPA {
 		
 		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 		Set<ReservationJPA> reservations = new HashSet<>();
+		
+		AirportJPA origin;
+		AirportJPA destination;
+		LocalDateTime dateAr;
+		LocalDateTime dateDep;
+		double prix;
+		int nbPlaceA;
+		int nbPlaceB;
+		int nbPlaceC;
+		String getAvailabilities;
+		LocalDateTime duration;
+	
+
+		public LocalDateTime getDuration() {
+			return duration;
+		}
+
+		public void setDuration(LocalDateTime duration) {
+			this.duration = duration;
+		}
+
+		public String getGetAvailabilities() {
+			getAvailabilities = "Nombre de place en A " + getNbPlaceA() + "Nombre de place en B " + getNbPlaceB() + "Nombre de place en C = " + getNbPlaceC();
+			return getAvailabilities;
+		}
+
+		public void setGetAvailabilities(String getAvailabilities) {
+			this.getAvailabilities = getAvailabilities;
+		}
+
+		BigInteger idCompany;
+		
+		
 		public Set<ReservationJPA> getReservations() {
 			return reservations;
 		}
@@ -31,17 +65,16 @@ public class FlightJPA {
 			this.reservations = reservations;
 		}
 
-		AirportJPA origin;
-		AirportJPA destination;
 
-		LocalDateTime dateAr;
-		LocalDateTime date;
-		double prix;
-		int nbPlaceA;
-		int nbPlaceB;
-		int nbPlaceC;
-		String company;
 		
+		public BigInteger getCompany() {
+			return idCompany;
+		}
+
+		public void setCompany(BigInteger idCompany) {
+			this.idCompany = idCompany;
+		}
+
 		public int getId() {
 			return id;
 		}
@@ -50,13 +83,7 @@ public class FlightJPA {
 			this.id = id;
 		}
 		
-		public LocalDateTime getDate() {
-			return getDate();
-		}
-		public void setDtDepart(LocalDateTime date) {
-			this.date = date;
-		}
-		
+	
 		
 		public double getPrix() {
 			return prix;
@@ -90,14 +117,37 @@ public class FlightJPA {
 			this.nbPlaceC = nbPlaceC;
 		}
 		
-		public AirportJPA getAddress() {
+		
+		public LocalDateTime getDateAr() {
+			return dateAr;
+		}
+
+		public void setDateAr(LocalDateTime dateAr) {
+			this.dateAr = dateAr;
+		}
+
+		public LocalDateTime getDateDep() {
+			return dateDep;
+		}
+
+		public void setDateDep(LocalDateTime dateDep) {
+			this.dateDep = dateDep;
+		}
+
+		public AirportJPA getOrigin() {
 			return origin;
-		}	
+		}
 
-		
-		
-		
-	
+		public void setOrigin(AirportJPA origin) {
+			this.origin = origin;
+		}
 
+		public AirportJPA getDestination() {
+			return destination;
+		}
+
+		public void setDestination(AirportJPA destination) {
+			this.destination = destination;
+		}
 	
 }

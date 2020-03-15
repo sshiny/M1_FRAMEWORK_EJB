@@ -55,7 +55,7 @@
 	<xsd:complexType name="Flight">
 		<xsd:sequence>
 			<xsd:element name="id" type="xsd:integer"></xsd:element>
-			<xsd:element name="idCompany" type="xsd:integer"></xsd:element>
+			<xsd:element name="company" type="xsd:string"></xsd:element>
 			<xsd:element name="availability" type="xsd:string"></xsd:element>
 			<xsd:element name="origin" type="Airport"></xsd:element>
 			<xsd:element name="destination" type="Airport"></xsd:element>

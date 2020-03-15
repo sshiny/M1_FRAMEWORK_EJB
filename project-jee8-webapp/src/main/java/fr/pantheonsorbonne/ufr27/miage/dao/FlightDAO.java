@@ -12,9 +12,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import fr.pantheonsorbonne.ufr27.miage.jpa.AirportJPA;
 import fr.pantheonsorbonne.ufr27.miage.jpa.FlightJPA;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AirportJPA;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
 
 public class FlightDAO {
 
@@ -29,12 +28,7 @@ public class FlightDAO {
 		AirportJPA destination = airportDAO.findByCity(_destination);
 		String day = _date.substring(0, 2);
 		String month = _date.substring(2);
-		
-		// get current year
-		Date current = new Date();
-		LocalDate localDate = current.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		int year  = localDate.getYear();
-		
+		int year  = LocalDate.now().getYear();
 		LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
 		LocalTime time = LocalTime.parse(departureTime);
 		CriteriaBuilder builder = em.getCriteriaBuilder();

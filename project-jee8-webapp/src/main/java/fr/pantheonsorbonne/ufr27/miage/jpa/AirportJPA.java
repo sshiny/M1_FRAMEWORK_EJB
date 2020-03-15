@@ -1,35 +1,31 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	import javax.persistence.Entity;
-	import javax.persistence.GeneratedValue;
-	import javax.persistence.GenerationType;
-	import javax.persistence.Id;
+@Entity
+public class AirportJPA {
 
-	@Entity
-	public class AirportJPA {
-		@Override
-		public String toString() {
-			return "code=" + code + ", street=" + street;
-		}
-		@Id
-		@GeneratedValue(strategy = GenerationType.AUTO)
-		int code;
+	@Id
+	String code;
+	
+	String city;
 
-		public int getCode() {
-			return code;
-		}
-		public void setCode(int code) {
-			this.code = code;
-		}
-		public String getSreet() {
-			return street;
-		}
-		public void setStreetName(String street) {
-			this.street = street;
-		}
-		
-		String street;
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 }
-
-

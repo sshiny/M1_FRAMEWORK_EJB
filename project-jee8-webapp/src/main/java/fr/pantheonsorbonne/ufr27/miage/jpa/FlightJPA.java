@@ -1,6 +1,5 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
-import java.math.BigInteger;
-import java.sql.Date;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,143 +10,118 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 
 public class FlightJPA {
-		@Id
-		@GeneratedValue(strategy = GenerationType.AUTO)
-		int id;
-		
-		
-		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-		Set<ReservationJPA> reservations = new HashSet<>();
-		
-		AirportJPA origin;
-		AirportJPA destination;
-		LocalDateTime dateAr;
-		LocalDateTime dateDep;
-		double prix;
-		int nbPlaceA;
-		int nbPlaceB;
-		int nbPlaceC;
-		String getAvailabilities;
-		LocalDateTime duration;
 	
-
-		public LocalDateTime getDuration() {
-			return duration;
-		}
-
-		public void setDuration(LocalDateTime duration) {
-			this.duration = duration;
-		}
-
-		public String getGetAvailabilities() {
-			getAvailabilities = "Nombre de place en A " + getNbPlaceA() + "Nombre de place en B " + getNbPlaceB() + "Nombre de place en C = " + getNbPlaceC();
-			return getAvailabilities;
-		}
-
-		public void setGetAvailabilities(String getAvailabilities) {
-			this.getAvailabilities = getAvailabilities;
-		}
-
-		BigInteger idCompany;
-		
-		
-		public Set<ReservationJPA> getReservations() {
-			return reservations;
-		}
-
-		public void setReservations(Set<ReservationJPA> reservations) {
-			this.reservations = reservations;
-		}
-
-
-		
-		public BigInteger getCompany() {
-			return idCompany;
-		}
-
-		public void setCompany(BigInteger idCompany) {
-			this.idCompany = idCompany;
-		}
-
-		public int getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
-		
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	int id;
 	
-		
-		public double getPrix() {
-			return prix;
-		}
-		
-		public void setprix(double prix) {
-			this.prix = prix;
-		}
-		
-		public int getNbPlaceA() {
-			return nbPlaceA;
-		}
-
-		public void setNbPlaceA(int nbPlaceA) {
-			this.nbPlaceA = nbPlaceA;
-		}
-
-		public int getNbPlaceB() {
-			return nbPlaceB;
-		}
-
-		public void setNbPlaceB(int nbPlaceB) {
-			this.nbPlaceB = nbPlaceB;
-		}
-
-		public int getNbPlaceC() {
-			return nbPlaceC;
-		}
-
-		public void setNbPlaceC(int nbPlaceC) {
-			this.nbPlaceC = nbPlaceC;
-		}
-		
-		
-		public LocalDateTime getDateAr() {
-			return dateAr;
-		}
-
-		public void setDateAr(LocalDateTime dateAr) {
-			this.dateAr = dateAr;
-		}
-
-		public LocalDateTime getDateDep() {
-			return dateDep;
-		}
-
-		public void setDateDep(LocalDateTime dateDep) {
-			this.dateDep = dateDep;
-		}
-
-		public AirportJPA getOrigin() {
-			return origin;
-		}
-
-		public void setOrigin(AirportJPA origin) {
-			this.origin = origin;
-		}
-
-		public AirportJPA getDestination() {
-			return destination;
-		}
-
-		public void setDestination(AirportJPA destination) {
-			this.destination = destination;
-		}
+	String company;
+	double price;
+	int nbPlacesA;
+	int nbPlacesB;
+	int nbPlacesC;
+	AirportJPA origin;
+	AirportJPA destination;
+	LocalDateTime departureDt;
+	LocalDateTime arrivalDt;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	Set<ReservationJPA> reservations = new HashSet<>();
+
+	public String getAvailabilities() {
+		return "A" + nbPlacesA + "B" + nbPlacesB + "C" + nbPlacesC;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getNbPlacesA() {
+		return nbPlacesA;
+	}
+
+	public void setNbPlacesA(int nbPlacesA) {
+		this.nbPlacesA = nbPlacesA;
+	}
+
+	public int getNbPlacesB() {
+		return nbPlacesB;
+	}
+
+	public void setNbPlacesB(int nbPlacesB) {
+		this.nbPlacesB = nbPlacesB;
+	}
+
+	public int getNbPlacesC() {
+		return nbPlacesC;
+	}
+
+	public void setNbPlacesC(int nbPlacesC) {
+		this.nbPlacesC = nbPlacesC;
+	}
+
+	public AirportJPA getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(AirportJPA origin) {
+		this.origin = origin;
+	}
+
+	public AirportJPA getDestination() {
+		return destination;
+	}
+
+	public void setDestination(AirportJPA destination) {
+		this.destination = destination;
+	}
+
+	public LocalDateTime getDepartureDt() {
+		return departureDt;
+	}
+
+	public void setDepartureDt(LocalDateTime departureDt) {
+		this.departureDt = departureDt;
+	}
+
+	public LocalDateTime getArrivalDt() {
+		return arrivalDt;
+	}
+
+	public void setArrivalDt(LocalDateTime arrivalDt) {
+		this.arrivalDt = arrivalDt;
+	}
+
+	public Set<ReservationJPA> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(Set<ReservationJPA> reservations) {
+		this.reservations = reservations;
+	}
 }

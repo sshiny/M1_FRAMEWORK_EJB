@@ -23,7 +23,7 @@ public class BookingDAO {
 	@Inject
 	AirportDAO airportDAO;
 	
-	public List<ReservationJPA> findAll(String _date, String _origin, String _destination, String departureTime) throws Exception {
+	public List<ReservationJPA> findAll(int _flyId, int _passengerId) throws Exception {
 		
 		
 		
@@ -34,10 +34,8 @@ public class BookingDAO {
 		Root<ReservationJPA> booking = query.from(ReservationJPA.class);
 		query.select(booking);
 		query.where(	
-			builder.equal(booking.get("date"), date),
-			builder.equal(booking.get("origin"), origin),
-			builder.equal(booking.get("destination"), destination),
-			builder.equal(b.get("departureTime"), time)
+			builder.equal(booking.get("vol"), _flyId),
+			builder.equal(booking.get("origin"), _passengerId)
 		);
 		return em.createQuery(query).getResultList();
 	}

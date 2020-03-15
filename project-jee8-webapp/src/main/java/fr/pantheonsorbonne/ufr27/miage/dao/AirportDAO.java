@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AirportJPA;
+import fr.pantheonsorbonne.ufr27.miage.jpa.AirportJPA;
 
 public class AirportDAO {
 	

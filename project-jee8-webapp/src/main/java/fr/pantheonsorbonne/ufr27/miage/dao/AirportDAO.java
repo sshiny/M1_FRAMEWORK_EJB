@@ -1,26 +1,33 @@
 package fr.pantheonsorbonne.ufr27.miage.dao;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Airport;
+import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AirportJPA;
 
 public class AirportDAO {
 	
 	@Inject
 	EntityManager em;
 	
-	public Airport findByCity(String city) throws Exception {
+	public AirportJPA findByCity(String city) throws NoAirportForSuchCityException {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
-		CriteriaQuery<Airport> query = builder.createQuery(Airport.class);
-		Root<Airport> airport = query.from(Airport.class);
-		query.select(airport);
-		query.where(builder.equal(airport.get("city"), city));
-		return em.createQuery(query).getSingleResult();
+		CriteriaQuery<AirportJPA> query = builder.createQuery(AirportJPA.class);
+		Root<AirportJPA> airports = query.from(AirportJPA.class);
+		query.select(airports);
+		query.where(builder.equal(airports.get("city"), city));
+		try {
+			return em.createQuery(query).getSingleResult();
+		} catch (Exception e) {
+			if (e instanceof NoResultException) {
+				throw new NoAirportForSuchCityException();
+			}
+			throw e;
+		}
 	}
 }

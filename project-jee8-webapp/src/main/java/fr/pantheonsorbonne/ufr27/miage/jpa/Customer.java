@@ -28,7 +28,6 @@ public class Customer {
 
 	BillingInfo billingInfo;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	Set<Contract> contracts = new HashSet<>();
 
 	boolean isActive = true;

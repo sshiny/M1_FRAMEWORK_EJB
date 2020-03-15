@@ -24,13 +24,19 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import fr.pantheonsorbonne.ufr27.miage.conf.EMFFactory;
 import fr.pantheonsorbonne.ufr27.miage.conf.EMFactory;
+import fr.pantheonsorbonne.ufr27.miage.dao.AirportDAO;
+import fr.pantheonsorbonne.ufr27.miage.dao.FlightDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.InvoiceDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.UserDAO;
+import fr.pantheonsorbonne.ufr27.miage.ejb.FlightService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.GymService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.InitService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.InitServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.MailingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.PaymentService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.impl.FlightServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.InvoicingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.MailingServiceImpl;
@@ -43,6 +49,7 @@ import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentAckQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.conf.PaymentQueueSupplier;
 import fr.pantheonsorbonne.ufr27.miage.jms.payment.PaymentProcessorBean;
 import fr.pantheonsorbonne.ufr27.miage.jms.utils.BrokerUtils;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
 
 /**
  * Main class.
@@ -82,6 +89,11 @@ public class Main {
 						bind(PaymentValidationAckownledgerBean.class).to(PaymentValidationAckownledgerBean.class)
 								.in(Singleton.class);
 
+						bind(ObjectFactory.class).to(ObjectFactory.class);
+						bind(FlightServiceImpl.class).to(FlightService.class);
+						bind(InitServiceImpl.class).to(InitService.class);
+						bind(AirportDAO.class).to(AirportDAO.class);
+						bind(FlightDAO.class).to(FlightDAO.class);
 					}
 
 				});

@@ -1,5 +1,8 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,20 +11,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 
-public class FlyJPA {
+public class FlightJPA {
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
 		int id;
 		
 		
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-		AirportJPA airport;
+		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		Set<ReservationJPA> reservations = new HashSet<>();
+		public Set<ReservationJPA> getReservations() {
+			return reservations;
+		}
 
-		Date dtDepart;
-		Date dtArrive;
+		public void setReservations(Set<ReservationJPA> reservations) {
+			this.reservations = reservations;
+		}
+
+		AirportJPA origin;
+		AirportJPA destination;
+
+		LocalDateTime dateAr;
+		LocalDateTime date;
 		double prix;
 		int nbPlaceA;
 		int nbPlaceB;
@@ -36,19 +50,13 @@ public class FlyJPA {
 			this.id = id;
 		}
 		
-		public Date getDtDepart() {
-			return dtDepart;
+		public LocalDateTime getDate() {
+			return getDate();
 		}
-		public void setDtDepart(Date dtDepart) {
-			this.dtDepart = dtDepart	;
+		public void setDtDepart(LocalDateTime date) {
+			this.date = date;
 		}
 		
-		public Date getDtArrive() {
-			return dtArrive;
-		}
-		public void setdtArrive(Date dtArrive) {
-			this.dtArrive = dtArrive	;
-		}
 		
 		public double getPrix() {
 			return prix;
@@ -83,7 +91,7 @@ public class FlyJPA {
 		}
 		
 		public AirportJPA getAddress() {
-			return airport;
+			return origin;
 		}	
 
 		

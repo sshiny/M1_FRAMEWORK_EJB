@@ -7,25 +7,32 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ReservationJPA {
 		
 		@Id
 		@GeneratedValue(strategy = GenerationType.AUTO)
-		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-		FlyJPA fly;
-		PassagerJPA passager;
+		@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		FlightJPA fly;
+		@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		PassagerJPA passenger;
+		public PassagerJPA getPassenger() {
+			return passenger;
+		}
 
+		public void setPassenger(PassagerJPA passenger) {
+			this.passenger = passenger;
+		}
 		int id;
 		double feePerPassenger;
 		
-		
-		public FlyJPA getFly() {
+		public FlightJPA getFly() {
 			return fly;
 		}
 
-		public void setFly(FlyJPA fly) {
+		public void setFly(FlightJPA fly) {
 			this.fly = fly;
 		}
 
@@ -33,7 +40,7 @@ public class ReservationJPA {
 			return id;
 		}
 		
-		public void setId(int id) {
+		public void setId(int code) {
 			this.id = id;
 		} 
 		
@@ -44,11 +51,4 @@ public class ReservationJPA {
 			this.feePerPassenger = feePerPassenger;
 		}
 		
-		public PassagerJPA getPassager() {
-			return passager;
-		}
-
-		public void setPassager(PassagerJPA passager) {
-			this.passager = passager;
-		}
 }

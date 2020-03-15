@@ -16,11 +16,12 @@ public class AirportDAO {
 	EntityManager em;
 	
 	public AirportJPA create(String code, String city) {
+		em.getTransaction().begin();
 		AirportJPA airport = new AirportJPA();
 		airport.setCode(code);
 		airport.setCity(city);
 		em.persist(airport);
-		em.flush();
+		em.getTransaction().commit();
 		return airport;
 	}
 	

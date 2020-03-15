@@ -31,7 +31,7 @@ public class FlightJPA {
 	LocalDateTime arrivalDt;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	Set<ReservationJPA> reservations = new HashSet<>();
+	Set<BookingJPA> bookings = new HashSet<>();
 
 	public String getAvailabilities() {
 		return "A" + nbPlacesA + "B" + nbPlacesB + "C" + nbPlacesC;
@@ -117,11 +117,11 @@ public class FlightJPA {
 		this.arrivalDt = arrivalDt;
 	}
 
-	public Set<ReservationJPA> getReservations() {
-		return reservations;
+	public Set<BookingJPA> getBookings() {
+		return bookings;
 	}
 
-	public void setReservations(Set<ReservationJPA> reservations) {
-		this.reservations = reservations;
+	public void setReservations(Set<BookingJPA> bookings) {
+		this.bookings = bookings;
 	}
 }

@@ -1,7 +1,5 @@
 package fr.pantheonsorbonne.ufr27.miage.resource;
 
-import java.util.Collection;
-
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,13 +9,10 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
 import fr.pantheonsorbonne.ufr27.miage.ejb.BookingService;
-import fr.pantheonsorbonne.ufr27.miage.ejb.FlightService;
-import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AvailabilityNeutralRequest;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Booking;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.NMRequest;
 
-@Path("booking/")
+@Path("bookings")
 public class BookingEndpoint {
 	
 	@Inject
@@ -26,7 +21,8 @@ public class BookingEndpoint {
 	@Consumes(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@Produces(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@GET
-	public Collection<Booking> getAll(AvailabilityNeutralRequest request) {
+	@Path("{id}/add-passenger")
+	public Booking addPassenger(NMRequest request) {
 		try {
 			return service.getAll(request);
 		} catch (Exception e) {

@@ -6,5 +6,5 @@ import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AvailabilityNeutralRequest;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
 
 public interface FlightService {
-	public Collection<Flight> getAll(AvailabilityNeutralRequest request);
+	public Collection<Flight> getAll(AvailabilityNeutralRequest request) throws Exception;
 }

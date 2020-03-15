@@ -14,9 +14,18 @@ public class PassagerJPA {
 	int id;
 	String nom;
 	String prenom;
+	String sexe;
 	
 	
-	public int getid() {
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
+	public int getId() {
 		return id;
 	}
 	

@@ -1,7 +1,5 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-
-
 	<xsd:complexType name="user">
 		<xsd:sequence>
 			<xsd:element name="fname" type="xsd:string"></xsd:element>
@@ -10,12 +8,7 @@
 				minOccurs="0"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
-
-
-
-
-
-
+	
 	<xsd:complexType name="address">
 		<xsd:sequence>
 			<xsd:element name="streetName" type="xsd:string"></xsd:element>
@@ -23,37 +16,172 @@
 			<xsd:element name="zipCode" type="xsd:string"></xsd:element>
 			<xsd:element name="Country" type="xsd:string"></xsd:element>
 		</xsd:sequence>
-
 	</xsd:complexType>
-
 
 	<xsd:element name="user" type="user"></xsd:element>
 	<xsd:element name="address" type="address"></xsd:element>
 	<xsd:element name="ccinfo" type="ccinfo"></xsd:element>
-
-
+	
 	<xsd:element name="freeTrialPlan">
 		<xsd:complexType>
 			<xsd:sequence>
 				<xsd:element name="user" type="user"></xsd:element>
 				<xsd:element name="address" type="address"></xsd:element>
 			</xsd:sequence>
-
 		</xsd:complexType>
-
-
 	</xsd:element>
-
+	
 	<xsd:complexType name="ccinfo">
 		<xsd:sequence>
-			<xsd:element name="number" type="xsd:string" />
-			<xsd:element name="validityDate" type="xsd:string" />
-			<xsd:element name="ccv" type="xsd:int" />
+			<xsd:element name="number" type="xsd:string"></xsd:element>
+			<xsd:element name="validityDate" type="xsd:string"></xsd:element>
+			<xsd:element name="ccv" type="xsd:int"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
+	
+	<xsd:element name="AvailabilityNeutralRequest" type="AvailabilityNeutralRequest"></xsd:element>
+	<xsd:element name="AvailabilityNeutralResponse" type="AvailabilityNeutralResponse"></xsd:element>
+	<xsd:element name="SSRequest" type="SSRequest"></xsd:element>
+	<xsd:element name="SSResponse" type="SSResponse"></xsd:element>
+	<xsd:element name="NMRequest" type="NMRequest"></xsd:element>
+	<xsd:element name="NMResponse" type="NMResponse"></xsd:element>
 
-
-
-
-
+	<xsd:simpleType name="IATA">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z]{3}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="Flight">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:integer"></xsd:element>
+			<xsd:element name="idCompany" type="xsd:integer"></xsd:element>
+			<xsd:element name="availability" type="xsd:string"></xsd:element>
+			<xsd:element name="origin" type="Airport"></xsd:element>
+			<xsd:element name="destination" type="Airport"></xsd:element>
+			<xsd:element name="departureTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="arrivalTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="duration" type="xsd:duration"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Booking">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:integer"></xsd:element>
+			<xsd:element name="flight" type="Flight"></xsd:element>
+			<xsd:element name="availability" type="xsd:string"></xsd:element>
+			<xsd:element name="origin" type="Airport"></xsd:element>
+			<xsd:element name="destination" type="Airport"></xsd:element>
+			<xsd:element name="departureTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="arrivalTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="duration" type="xsd:duration"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Airport">
+		<xsd:sequence>
+			<xsd:element name="code" type="IATA"></xsd:element>
+			<xsd:element name="city" type="IATA"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="DateTimeOnFourChar">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{4}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="AvailabilityNeutralRequest">
+		<xsd:sequence>
+			<xsd:element name="date" type="DateTimeOnFourChar"></xsd:element>
+			<xsd:element name="origin" type="IATA"></xsd:element>
+			<xsd:element name="destination" type="IATA"></xsd:element>
+			<xsd:element name="departureTime" type="DateTimeOnFourChar" minOccurs="0"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="AvailabilityNeutralResponse">
+		<xsd:sequence>
+			<!-- <xsd:element name="id" type="xsd:integer"></xsd:element>
+			<xsd:element name="idCompagny" type="xsd:string"></xsd:element>
+			<xsd:element name="idFlight" type="xsd:integer"></xsd:element>
+			<xsd:element name="availability" type="xsd:string"></xsd:element>
+			<xsd:element name="origin" type="IATA"></xsd:element>
+			<xsd:element name="destination" type="IATA"></xsd:element>
+			<xsd:element name="departureTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="arrivalTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="duration" type="xsd:duration"></xsd:element> -->
+			
+			<xsd:element name="title" type="xsd:string"></xsd:element>
+			<xsd:element name="date" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="flights" type="Flight" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SSRequest">
+		<xsd:sequence>
+			<xsd:element name="numberOfSeats" type="xsd:integer"></xsd:element>
+			<xsd:element name="class" type="xsd:string"></xsd:element>
+			<xsd:element name="availabilityLineNumber" type="xsd:integer"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SSResponse">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:integer"></xsd:element>
+			<xsd:element name="idCompany" type="xsd:integer"></xsd:element>
+			<xsd:element name="availability" type="xsd:string"></xsd:element>
+			<xsd:element name="id" type="xsd:integer"></xsd:element>
+			<xsd:element name="idCompagny" type="xsd:string"></xsd:element>
+			<xsd:element name="idFlight" type="xsd:integer"></xsd:element>
+			<xsd:element name="class" type="xsd:string"></xsd:element>
+			<xsd:element name="date" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="numberOfSeats" type="xsd:integer"></xsd:element>
+			<xsd:element name="origin" type="IATA"></xsd:element>
+			<xsd:element name="destination" type="IATA"></xsd:element>
+			<xsd:element name="departureTime" type="xsd:dateTime"></xsd:element>
+			<xsd:element name="arrivalTime" type="xsd:dateTime"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Passenger">
+		<xsd:sequence>
+			<xsd:element name="lname" type="xsd:string"></xsd:element>
+			<xsd:element name="fname" type="xsd:string"></xsd:element>
+			<xsd:element name="sexe" type="xsd:string"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="ListOfPassengers">
+		<xsd:sequence>
+			<xsd:element name="passenger" type="Passenger" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="NMRequest">
+		<xsd:sequence>
+			<xsd:element name="passenger" type="Passenger"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="NMResponse">
+		<xsd:sequence>
+			<xsd:element name="passengers" type="ListOfPassengers"></xsd:element>
+			<xsd:element name="ss" type="SSResponse"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FPXRequest">
+		<xsd:sequence>
+			<xsd:element name="passenger" type="Passenger"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FPXResponse">
+		<xsd:sequence>
+			<xsd:element name="passengers" type="ListOfPassengers"></xsd:element>
+			<xsd:element name="ss" type="SSResponse"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
 </xsd:schema>

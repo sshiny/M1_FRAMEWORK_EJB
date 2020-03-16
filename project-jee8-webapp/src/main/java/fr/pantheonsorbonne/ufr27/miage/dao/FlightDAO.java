@@ -49,12 +49,15 @@ public class FlightDAO {
         switch (klass) {
 	        case "A":
 	        	flight.setNbPlacesA(flight.getNbPlacesA() - seats);
+				flight.setPrice(flight.getPrice() + 10);
 	        	break;
 	        case "B":
 	        	flight.setNbPlacesB(flight.getNbPlacesB() - seats);
+				flight.setPrice(flight.getPrice() + 10);
 	        	break;
 	        case "C":
 	        	flight.setNbPlacesC(flight.getNbPlacesC() - seats);
+				flight.setPrice(flight.getPrice() + 10);
 	        	break;
 	        default:
 	        	break;
@@ -71,17 +74,20 @@ public class FlightDAO {
 		String month = _date.substring(2);
 		int year  = LocalDate.now().getYear();
 		LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
-		LocalTime time = LocalTime.parse(departureTime);
+		LocalTime time = (departureTime != null) ? LocalTime.parse(departureTime) : null;
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<FlightJPA> query = builder.createQuery(FlightJPA.class);
 		Root<FlightJPA> flights = query.from(FlightJPA.class);
 		query.select(flights);
 		query.where(	
-			builder.equal(flights.get("date"), date),
+			builder.greaterThan(flights.get("departureDt"), date.atStartOfDay()),
+			builder.lessThan(flights.get("departureDt"), date.atTime(LocalTime.MAX)),
 			builder.equal(flights.get("origin"), origin),
-			builder.equal(flights.get("destination"), destination),
-			builder.equal(flights.get("departureTime"), time)
+			builder.equal(flights.get("destination"), destination)
 		);
+		if (time != null) {
+			query.where(builder.greaterThan(flights.get("departureTime"), LocalDateTime.of(date, time)));
+		}
 		return em.createQuery(query).getResultList();
 	}
 }

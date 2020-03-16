@@ -45,6 +45,10 @@
 	<xsd:element name="SSResponse" type="SSResponse"></xsd:element>
 	<xsd:element name="NMRequest" type="NMRequest"></xsd:element>
 	<xsd:element name="NMResponse" type="NMResponse"></xsd:element>
+	<xsd:element name="Flight" type="Flight"></xsd:element>
+	<xsd:element name="FlightPrice" type="FlightPrice"></xsd:element>
+	<xsd:element name="Booking" type="Booking"></xsd:element>
+	<xsd:element name="Airport" type="Airport"></xsd:element>
 
 	<xsd:simpleType name="IATA">
 		<xsd:restriction base="xsd:string">
@@ -62,6 +66,15 @@
 			<xsd:element name="departureTime" type="xsd:dateTime"></xsd:element>
 			<xsd:element name="arrivalTime" type="xsd:dateTime"></xsd:element>
 			<xsd:element name="duration" type="xsd:duration"></xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="FlightPrice">
+		<xsd:sequence>
+			<xsd:element name="title" type="xsd:string"></xsd:element>
+			<xsd:element name="fare" type="xsd:double"></xsd:element>
+			<xsd:element name="fee" type="xsd:double"></xsd:element>
+			<xsd:element name="total" type="xsd:double"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 	
@@ -160,19 +173,6 @@
 	</xsd:complexType>
 	
 	<xsd:complexType name="NMResponse">
-		<xsd:sequence>
-			<xsd:element name="passengers" type="ListOfPassengers"></xsd:element>
-			<xsd:element name="ss" type="SSResponse"></xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="FPXRequest">
-		<xsd:sequence>
-			<xsd:element name="passenger" type="Passenger"></xsd:element>
-		</xsd:sequence>
-	</xsd:complexType>
-	
-	<xsd:complexType name="FPXResponse">
 		<xsd:sequence>
 			<xsd:element name="passengers" type="ListOfPassengers"></xsd:element>
 			<xsd:element name="ss" type="SSResponse"></xsd:element>

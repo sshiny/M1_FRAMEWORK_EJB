@@ -25,10 +25,13 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 import fr.pantheonsorbonne.ufr27.miage.conf.EMFFactory;
 import fr.pantheonsorbonne.ufr27.miage.conf.EMFactory;
 import fr.pantheonsorbonne.ufr27.miage.dao.AirportDAO;
+import fr.pantheonsorbonne.ufr27.miage.dao.BookingDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.FlightDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.InvoiceDAO;
+import fr.pantheonsorbonne.ufr27.miage.dao.PassengerDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.PaymentDAO;
 import fr.pantheonsorbonne.ufr27.miage.dao.UserDAO;
+import fr.pantheonsorbonne.ufr27.miage.ejb.BookingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.FlightService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.GymService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.InitService;
@@ -37,6 +40,7 @@ import fr.pantheonsorbonne.ufr27.miage.ejb.InvoicingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.MailingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.PassengerService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.PaymentService;
+import fr.pantheonsorbonne.ufr27.miage.ejb.impl.BookingServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.FlightServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.GymServiceImpl;
 import fr.pantheonsorbonne.ufr27.miage.ejb.impl.InvoicingServiceImpl;
@@ -92,11 +96,14 @@ public class Main {
 								.in(Singleton.class);
 
 						bind(ObjectFactory.class).to(ObjectFactory.class);
+						bind(BookingServiceImpl.class).to(BookingService.class);
 						bind(FlightServiceImpl.class).to(FlightService.class);
 						bind(PassengerServiceImpl.class).to(PassengerService.class);
 						bind(InitServiceImpl.class).to(InitService.class);
 						bind(AirportDAO.class).to(AirportDAO.class);
+						bind(BookingDAO.class).to(BookingDAO.class);
 						bind(FlightDAO.class).to(FlightDAO.class);
+						bind(PassengerDAO.class).to(PassengerDAO.class);
 					}
 
 				});

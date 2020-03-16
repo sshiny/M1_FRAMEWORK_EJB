@@ -1,6 +1,6 @@
 package fr.pantheonsorbonne.ufr27.miage.resource;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
@@ -35,13 +36,8 @@ public class FlightEndpoint {
 
 	@Produces(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@GET
-	@Path("{date}/{origin}/{destination}/{departureTime}")
-	public Collection<Flight> getAll(
-		@PathParam("date") String date,
-		@PathParam("origin") String origin,
-		@PathParam("destination") String destination,
-		@PathParam("departureTime") String departureTime)
-	{
+	@Path("/")
+	public List<Flight> getAll(@QueryParam("date") String date, @QueryParam("origin") String origin, @QueryParam("destination") String destination, @QueryParam("departureTime") String departureTime) {
 		try {
 			AvailabilityNeutralRequest req = factory.createAvailabilityNeutralRequest();
 			req.setDate(date);

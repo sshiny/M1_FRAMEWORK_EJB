@@ -37,6 +37,10 @@ public class FlightJPA {
 		return "A" + nbPlacesA + "B" + nbPlacesB + "C" + nbPlacesC;
 	}
 
+	public int getNbPlacesTotal() {
+		return nbPlacesA + nbPlacesB + nbPlacesC;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -121,7 +125,7 @@ public class FlightJPA {
 		return bookings;
 	}
 
-	public void setReservations(Set<BookingJPA> bookings) {
+	public void setBookings(Set<BookingJPA> bookings) {
 		this.bookings = bookings;
 	}
 }

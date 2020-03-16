@@ -5,7 +5,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -30,14 +29,14 @@ public class FlightServiceImpl implements FlightService {
 	ObjectFactory factory;
 	
 	@Override
-	public Collection<Flight> getAll(AvailabilityNeutralRequest request) throws Exception {
+	public List<Flight> getAll(AvailabilityNeutralRequest request) throws Exception {
 		List<FlightJPA> flights = dao.findAll(
 			request.getDate(),
 			request.getOrigin(),
 			request.getDestination(),
 			request.getDepartureTime()
 		);
-		Collection<Flight> res = new ArrayList<>();
+		List<Flight> res = new ArrayList<>();
 		int i = 0;
 		for (FlightJPA f : flights) {
 			Flight flight = factory.createFlight();
@@ -65,7 +64,6 @@ public class FlightServiceImpl implements FlightService {
 		    xcal = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
 		    flight.setArrivalTime(xcal);
 		    
-
 		    Duration duration = Duration.between(f.getDepartureDt(), f.getArrivalDt());
 		    flight.setDuration(DatatypeFactory.newInstance().newDuration(duration.toString()));
 			res.add(flight);

@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 
 import fr.pantheonsorbonne.ufr27.miage.exception.NoSuchBookingException;
 import fr.pantheonsorbonne.ufr27.miage.jpa.BookingJPA;
+import fr.pantheonsorbonne.ufr27.miage.jpa.FlightJPA;
 import fr.pantheonsorbonne.ufr27.miage.jpa.PassengerJPA;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Passenger;
 
 public class BookingDAO {
 	
@@ -20,9 +20,10 @@ public class BookingDAO {
 	@Inject
 	FlightDAO flightDao;
 	
-	public BookingJPA create(int seats, String klass) {
+	public BookingJPA create(FlightJPA flight, int seats, String klass) {
 		em.getTransaction().begin();
 		BookingJPA booking = new BookingJPA();
+		booking.setFlight(flight);
 		Map<String, Integer> map = new HashMap<>();
 		map.put(klass, seats);
 		booking.setSeats(map);

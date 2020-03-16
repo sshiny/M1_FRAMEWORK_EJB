@@ -1,16 +1,14 @@
 package fr.pantheonsorbonne.ufr27.miage.jpa;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class BookingJPA {
@@ -20,11 +18,9 @@ public class BookingJPA {
 	String id;
 	
 	double feePerPassenger;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	FlightJPA flight;
-	
 	Set<PassengerJPA> passengers = new HashSet<>();
+	Map<String, Integer> seats = new HashMap<>();
 
 	public String getId() {
 		return id;
@@ -50,11 +46,19 @@ public class BookingJPA {
 		this.flight = flight;
 	}
 
-	public Set<PassengerJPA> getPassenger() {
+	public Set<PassengerJPA> getPassengers() {
 		return passengers;
 	}
 
-	public void setPassenger(Set<PassengerJPA> passengers) {
+	public void setPassengers(Set<PassengerJPA> passengers) {
 		this.passengers = passengers;
+	}
+
+	public Map<String, Integer> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(Map<String, Integer> seats) {
+		this.seats = seats;
 	}
 }

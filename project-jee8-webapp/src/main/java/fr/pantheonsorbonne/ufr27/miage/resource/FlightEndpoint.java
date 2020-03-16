@@ -16,10 +16,10 @@ import fr.pantheonsorbonne.ufr27.miage.ejb.BookingService;
 import fr.pantheonsorbonne.ufr27.miage.ejb.FlightService;
 import fr.pantheonsorbonne.ufr27.miage.exception.NoAirportForSuchCityException;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.AvailabilityNeutralRequest;
+import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Booking;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.Flight;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.ObjectFactory;
 import fr.pantheonsorbonne.ufr27.miage.model.jaxb.SSRequest;
-import fr.pantheonsorbonne.ufr27.miage.model.jaxb.SSResponse;
 
 @Path("flights")
 public class FlightEndpoint {
@@ -61,13 +61,10 @@ public class FlightEndpoint {
 	@Produces(value = { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	@POST
 	@Path("{id}/book")
-	public Collection<SSResponse> book(@PathParam("id") int id, SSRequest req) {
+	public Booking book(@PathParam("id") int id, SSRequest req) {
 		try {
 			return bookingService.book(id, req);
 		} catch (Exception e) {
-			if (e instanceof NoAirportForSuchCityException) {
-				throw new WebApplicationException("airport no found", 404);
-			}
 			throw new WebApplicationException(500);
 		}
 	}

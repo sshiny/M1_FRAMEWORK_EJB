@@ -13,7 +13,7 @@ public class PassengerDAO {
 	@Inject
 	EntityManager em;
 
-	public boolean create(Passenger passenger) {
+	public PassengerJPA create(Passenger passenger) {
 		em.getTransaction().begin();
 		PassengerJPA toPersist = new PassengerJPA();
 		toPersist.setLname(passenger.getLname());
@@ -21,7 +21,7 @@ public class PassengerDAO {
 		toPersist.setGender(passenger.getGender());
 		em.persist(toPersist);
 		em.getTransaction().commit();
-		return true;
+		return toPersist;
 	}
 
 	public Passenger getUserFromId(int id) throws NoSuchUserException {
